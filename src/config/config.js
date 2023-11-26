@@ -1,8 +1,8 @@
 
 const config = {
   username: 'root',
-  passwort: 'password',
-  database: 'personal_blog-db',
+  password: 'password',
+  database: 'personal-blog-db',
   host: 'database',
   dialect: 'mysql'
 };

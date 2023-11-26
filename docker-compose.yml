@@ -29,6 +29,6 @@ services:
       - 33060:3306
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: personal_blog-db
+      MYSQL_DATABASE: personal-blog-db
     volumes:
       - ./:/docker-entrypoint-initdb.d
