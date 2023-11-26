@@ -5,5 +5,6 @@ const postRouter = Router();
 
 postRouter.get('/', postController.listAllPosts);
 postRouter.post('/', postController.createPost);
+postRouter.get('/:id', postController.getPostById);
 
 module.exports = postRouter;

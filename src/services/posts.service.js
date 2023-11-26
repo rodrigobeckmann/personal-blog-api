@@ -6,6 +6,14 @@ const listAllPosts = async () => {
   return {status: 200, data: posts};
 }
 
+const getPostById = async (id) => {
+  const post = await Post.findByPk(id);
+  if (!post) {
+    return {status: 404, data: {message: 'Post not found!'}};
+  }
+  return {status: 200, data: post};
+}
+
 const createPost = async (title, content, user) => {
 
   if (!title || !content) {
@@ -29,4 +37,5 @@ const createPost = async (title, content, user) => {
 module.exports = {
   listAllPosts,
   createPost,
+  getPostById,
 };

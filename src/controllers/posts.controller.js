@@ -6,6 +6,12 @@ const listAllPosts = async (_req, res) => {
   res.status(posts.status).json(posts.data);
 }
 
+const getPostById = async (req, res) => {
+  const id = req.params.id;
+  const post = await postService.getPostById(id);
+  res.status(post.status).json(post.data);
+}
+
 const createPost = async (req, res) => {
   const { title, content } = req.body;
   const user = getUserFromToken(req.headers.authorization);
@@ -17,4 +23,5 @@ const createPost = async (req, res) => {
 module.exports = {
   listAllPosts,
   createPost,
+  getPostById,
 };
