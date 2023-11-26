@@ -9,7 +9,7 @@ const generateToken = (payload) => {
 
 const getUserFromToken = (token) => {
 const decoded = jwt.verify(token.split(' ')[1], SECRET_KEY);
-return decoded.user.id;
+return decoded.user;
 };
 
 module.exports = {
