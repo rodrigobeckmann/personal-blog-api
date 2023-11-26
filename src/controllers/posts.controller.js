@@ -10,7 +10,6 @@ const listAllPosts = async (req, res) => {
 const createPost = async (req, res) => {
   const { content } = req.body;
   const { id, isAdmin } = getUserFromToken(req.headers.authorization);
-  console.log(isAdmin)
   if (!isAdmin) {
     return res.status(401).json({ message: 'Only admins can create posts' });
   }
