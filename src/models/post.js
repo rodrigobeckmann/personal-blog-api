@@ -6,6 +6,11 @@ const PostModel = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false,
     },
+    title: {
+      type: DataTypes.STRING,
+      allowNull:false,
+      unique:true
+    },
     content: {
       type: DataTypes.STRING,
       allowNull:false,
