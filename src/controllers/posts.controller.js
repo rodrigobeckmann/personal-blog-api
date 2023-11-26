@@ -8,12 +8,12 @@ const listAllPosts = async (req, res) => {
 }
 
 const createPost = async (req, res) => {
-  const { content } = req.body;
+  const { title, content } = req.body;
   const { id, isAdmin } = getUserFromToken(req.headers.authorization);
   if (!isAdmin) {
     return res.status(401).json({ message: 'Only admins can create posts' });
   }
-  const post = await postService.createPost(content, id);
+  const post = await postService.createPost(title, content, id);
   res.status(post.status).json(post.data);
 }
 

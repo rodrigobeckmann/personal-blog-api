@@ -6,8 +6,8 @@ const listAllPosts = async () => {
   return {status: 200, data: posts};
 }
 
-const createPost = async (content, userId) => {
-  const post = await Post.create({ content, userId });
+const createPost = async (title, content, userId) => {
+  const post = await Post.create({ title, content, userId });
   return {status: 201, data: post};
 }
 
