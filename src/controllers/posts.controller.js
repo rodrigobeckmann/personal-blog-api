@@ -9,11 +9,9 @@ const listAllPosts = async (req, res) => {
 
 const createPost = async (req, res) => {
   const { title, content } = req.body;
-  const { id, isAdmin } = getUserFromToken(req.headers.authorization);
-  if (!isAdmin) {
-    return res.status(401).json({ message: 'Only admins can create posts' });
-  }
-  const post = await postService.createPost(title, content, id);
+  const user = getUserFromToken(req.headers.authorization);
+  if (!user) return res.status(401).json({ message: 'Expired or invalid token!' });
+  const post = await postService.createPost(title, content, user);
   res.status(post.status).json(post.data);
 }
 

@@ -6,8 +6,13 @@ const listAllPosts = async () => {
   return {status: 200, data: posts};
 }
 
-const createPost = async (title, content, userId) => {
-  const post = await Post.create({ title, content, userId });
+const createPost = async (title, content, user) => {
+
+  if (!user.isAdmin) {
+    return {status: 401, data: {message: 'Unauthorized user!'}};
+  }
+
+  const post = await Post.create({ title, content, userId: user.id });
   return {status: 201, data: post};
 }
 
