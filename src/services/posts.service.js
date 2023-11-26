@@ -2,12 +2,12 @@ const { Post } = require('../models');
 const { User } = require('../models');
 
 const listAllPosts = async () => {
-  const posts = await Post.findAll();
+  const posts = await Post.findAll({ attributes: { exclude: ['userId', 'updatedAt'] }});
   return {status: 200, data: posts};
 }
 
 const getPostById = async (id) => {
-  const post = await Post.findByPk(id);
+  const post = await Post.findByPk(id, { attributes: { exclude: ['userId', 'updatedAt'] }});
   if (!post) {
     return {status: 404, data: {message: 'Post not found!'}};
   }
