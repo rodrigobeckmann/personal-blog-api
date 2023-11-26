@@ -1,8 +1,7 @@
 const postService = require('../services/posts.service');
 const { getUserFromToken } = require('../auth/tokenUtils');
-const { is } = require('bluebird');
 
-const listAllPosts = async (req, res) => {
+const listAllPosts = async (_req, res) => {
   const posts = await postService.listAllPosts();
   res.status(posts.status).json(posts.data);
 }
