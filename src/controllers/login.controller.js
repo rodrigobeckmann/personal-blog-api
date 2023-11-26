@@ -6,6 +6,13 @@ const userLogin = async (req, res) => {
   return res.status(status).json(data);
 }
 
+const adminLogin = async (req, res) => {
+  const { email, password } = req.body;
+  const { status, data } = await loginService.adminLogin(email, password);
+  return res.status(status).json(data);
+}
+
 module.exports = {
   userLogin,
+  adminLogin,
 };
