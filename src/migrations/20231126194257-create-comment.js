@@ -19,7 +19,9 @@ module.exports = {
         references:{
           model:'Users',
           key:'id'
-        }
+        },
+        onDelete:'CASCADE',
+        onUpdate:'CASCADE',
       },
       postId: {
         type: Sequelize.INTEGER,
@@ -27,7 +29,9 @@ module.exports = {
         references:{
           model:'Posts',
           key:'id'
-        }
+        },
+        onDelete:'CASCADE',
+        onUpdate:'CASCADE',
       },
       createdAt: {
         type: Sequelize.DATE,
