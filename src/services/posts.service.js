@@ -8,8 +8,18 @@ const listAllPosts = async () => {
 
 const createPost = async (title, content, user) => {
 
-  if (!user.isAdmin) {
+  if (!title || !content) {
+    return {status: 400, data: {message: 'Missing required fields!'}};
+  }
+
+  if (!user || !user.isAdmin) {
     return {status: 401, data: {message: 'Unauthorized user!'}};
+  }
+
+  const verifyTitle = await Post.findOne({ where: { title } });
+
+  if (verifyTitle) {
+    return {status: 409, data: {message: 'Title already registered!'}};
   }
 
   const post = await Post.create({ title, content, userId: user.id });
