@@ -2,15 +2,16 @@ version: '3'
 
 services:
   node:
-    image: node:16.13
+    build: .
+    user: node
     container_name: personal-blog-api
     tty: true
     stdin_open: true
-    command: bash
+    command: ash
     restart: always
-    working_dir: /home/node/app
+    working_dir: /app
     volumes:
-      - ./:/home/node/app
+      - ./:/app
     depends_on:
       - database
     ports:
