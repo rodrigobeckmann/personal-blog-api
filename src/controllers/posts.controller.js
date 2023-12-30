@@ -14,7 +14,6 @@ const getPostById = async (req, res) => {
 const createPost = async (req, res) => {
   const { title, content } = req.body;
   const user = req.user;
-  if (!user) return res.status(401).json({ message: 'Expired or invalid token!' });
   const post = await postService.createPost(title, content, user);
   res.status(post.status).json(post.data);
 }
