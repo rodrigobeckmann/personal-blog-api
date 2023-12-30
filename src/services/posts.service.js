@@ -1,37 +1,37 @@
 const { Post } = require('../models');
-const { User } = require('../models');
+const customError = require('../utils/customError');
+const handleError = require('../utils/handleError');
 
 const listAllPosts = async () => {
-  const posts = await Post.findAll({ attributes: { exclude: ['userId', 'updatedAt'] }});
-  return {status: 200, data: posts};
+  try {
+    const posts = await Post.findAll({ attributes: { exclude: ['userId', 'updatedAt'] } });
+    return { status: 200, data: posts };
+  } catch (error) {
+    return handleError(error);
+  }
 }
 
 const getPostById = async (id) => {
-  const post = await Post.findByPk(id, { attributes: { exclude: ['userId', 'updatedAt'] }});
-  if (!post) {
-    return {status: 404, data: {message: 'Post not found!'}};
+  try {
+    const post = await Post.findByPk(id, { attributes: { exclude: ['userId', 'updatedAt'] } });
+    if (!post) throw new customError('Post not found!', 404);
+    return { status: 200, data: post };
+  } catch (error) {
+    return handleError(error);
   }
-  return {status: 200, data: post};
 }
 
 const createPost = async (title, content, user) => {
-
-  if (!title || !content) {
-    return {status: 400, data: {message: 'Missing required fields!'}};
+  try {
+    if (!title || !content) throw new customError('Missing required fields!', 400);
+    if (!user || !user.isAdmin) throw new customError('Unauthorized user!', 401);
+    const verifyTitle = await Post.findOne({ where: { title } });
+    if (verifyTitle) throw new customError('Title already registered!', 409);
+    const post = await Post.create({ title, content, userId: user.id });
+    return { status: 201, data: post };
+  } catch (error) {
+    return handleError(error);
   }
-
-  if (!user || !user.isAdmin) {
-    return {status: 401, data: {message: 'Unauthorized user!'}};
-  }
-
-  const verifyTitle = await Post.findOne({ where: { title } });
-
-  if (verifyTitle) {
-    return {status: 409, data: {message: 'Title already registered!'}};
-  }
-
-  const post = await Post.create({ title, content, userId: user.id });
-  return {status: 201, data: post};
 }
 
 module.exports = {
