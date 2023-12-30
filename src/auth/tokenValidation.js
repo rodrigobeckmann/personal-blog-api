@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const userService = require('../services/userService');
+const userService = require('../services/users.service');
 
 const secret = process.env.JWT_SECRET || 'secret';
 
@@ -25,7 +25,7 @@ module.exports = async (req, res, next) => {
       return res.status(401).json({ message: 'Expired or Invalid token' });
     }
 
-    req.user = data.user;
+    req.user = data;
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Expired or Invalid token' });
