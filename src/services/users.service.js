@@ -1,30 +1,28 @@
 const { User } = require('../models');
+const customError = require('../utils/customError');
+const handleError = require('../utils/handleError');
 
 const getUserById = async (id) => {
-  const user = await User.findById(id);
-
-  if (!user) return { status: 404, data: { message: 'User not found' } };
-
-  return { status: 200, data: user };
+  try {
+    const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
+    if (!user) throw new customError('User not found!', 404);
+    return { status: 200, data: user };
+  } catch (error) {
+    return handleError(error);
+  }
 }
 
 const createUser = async (user) => {
-
-  const { fullName, email, password } = user;
-
-  if (!fullName || !email || !password) {
-    return { status: 400, data: { message: "One or more required fields are missing!"}}
+  try {
+    const { fullName, email, password } = user;
+    if (!fullName || !email || !password) throw new customError('One or more required fields are missing!', 400);
+    const foundUser = await User.findOne({ where: { email } });
+    if (foundUser) throw new customError('This email is already in use!', 409);
+    const newUser = await User.create(user);
+    return { status: 201, data: newUser };
+  } catch (error) {
+    return handleError(error);
   }
-
-  const foundUser = await User.findOne({ where: { email } });
-
-  if (foundUser) {
-    return { status: 409, data: { message: "This email is already in use!" } };
-  }
-
-  const newUser = await User.create(user);
-
-  return { status: 201, data: newUser };
 }
 
 module.exports = {
