@@ -7,12 +7,6 @@ const generateToken = (payload) => {
   return token;
 }
 
-const getUserFromToken = (token) => {
-const decoded = jwt.verify(token.split(' ')[1], SECRET_KEY);
-return decoded.user;
-};
-
 module.exports = {
   generateToken,
-  getUserFromToken,
 };
