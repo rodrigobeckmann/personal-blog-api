@@ -3,7 +3,8 @@ const userService = require('../services/users.service');
 const customError = require('../utils/customError');
 const handleError = require('../utils/handleError');
 
-const secret = process.env.JWT_SECRET || 'secret';
+const secret = process.env.JWT_SECRET;
+console.log(secret)
 
 const extractToken = (bearerToken) => {
   return bearerToken.split(' ')[1];
