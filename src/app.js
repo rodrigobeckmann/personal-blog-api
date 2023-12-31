@@ -3,8 +3,13 @@ const postRouter = require('./routers/posts.router');
 const loginRouter = require('./routers/login.router');
 const commentRouter = require('./routers/comments.router');
 const userRouter = require('./routers/users.router');
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors({
+  origin: '*',
+}));
 
 app.use(express.json());
 app.use('/posts', postRouter);
