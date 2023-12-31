@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const { generateToken } = require('../auth/tokenUtils');
+const { generateToken } = require('../utils/tokenUtils');
 const customError = require('../utils/customError');
 const handleError = require('../utils/handleError');
 
