@@ -7,7 +7,7 @@ const extractToken = (bearerToken) => {
 };
 
 const generateToken = (payload) => {
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '15m' });
+  const token = jwt.sign(payload, SECRET_KEY);
   return token;
 }
 
