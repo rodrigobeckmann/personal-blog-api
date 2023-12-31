@@ -17,10 +17,10 @@ services:
     ports:
       - 3001:3001
     environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      MYSQL_PORT: 3306
-      MYSQL_HOST: database
+      MYSQLUSER: root
+      MYSQLPASSWORD: password
+      MYSQLPORT: 3306
+      MYSQLHOST: database
       PORT: 3001
 
   database:
@@ -30,6 +30,6 @@ services:
       - 33060:3306
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: personal-blog-db
+      MYSQLDATABASE: personal-blog-db
     volumes:
       - ./:/docker-entrypoint-initdb.d
