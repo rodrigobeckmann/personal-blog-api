@@ -7,5 +7,6 @@ const postRouter = Router();
 postRouter.get('/', postController.listAllPosts);
 postRouter.post('/', authMiddleware, postController.createPost);
 postRouter.get('/:id', postController.getPostById);
+postRouter.patch('/:id', authMiddleware, postController.updatePost);
 
 module.exports = postRouter;
