@@ -1,13 +1,10 @@
 const jwt = require('jsonwebtoken');
 const userService = require('../services/users.service');
+const { extractToken } = require('../utils/tokenUtils');
 const customError = require('../utils/customError');
 const handleError = require('../utils/handleError');
 
 const secret = process.env.JWT_SECRET;
-
-const extractToken = (bearerToken) => {
-  return bearerToken.split(' ')[1];
-};
 
 module.exports = async (req, res, next) => {
   const bearerToken = req.header('Authorization');
