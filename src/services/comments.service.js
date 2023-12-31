@@ -14,6 +14,20 @@ const getCommentsByPostId = async (postId) => {
   }
 }
 
+const createComment = async (postId, content, userId) => {
+  try {
+    if (!content) throw new customError('Missing required fields!', 400);
+    const post = await Post.findByPk(postId);
+    if (!post) throw new customError("Post doesn't exists!", 404);
+    await Comment.create({ content, userId: userId, postId: post.id  });
+    return { status: 201 };
+  } catch (error) {
+    return handleError(error);
+  }
+
+}
+
 module.exports = {
   getCommentsByPostId,
+  createComment,
 };

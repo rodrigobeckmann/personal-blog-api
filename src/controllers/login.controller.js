@@ -12,7 +12,14 @@ const adminLogin = async (req, res) => {
   return res.status(status).json(data);
 }
 
+const verifyUser = async (req, res) => {
+  const user = req.user;
+  const { status, data } = await loginService.verifyUser(user);
+  return res.status(status).json(data);
+}
+
 module.exports = {
   userLogin,
   adminLogin,
+  verifyUser,
 };
