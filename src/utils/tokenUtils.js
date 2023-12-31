@@ -11,7 +11,19 @@ const generateToken = (payload) => {
   return token;
 }
 
+const getUserIdFromToken = (token) => {
+  try {
+    const splitedToken = extractToken(token);
+    const decoded = jwt.verify(splitedToken, SECRET_KEY);
+    console.log(decoded)
+    return decoded.user.id;
+  } catch {
+    return null;
+  }
+}
+
 module.exports = {
   extractToken,
   generateToken,
+  getUserIdFromToken,
 };
