@@ -24,7 +24,7 @@ const getPostById = async (id) => {
 const createPost = async (title, content, user) => {
   try {
     if (!title || !content) throw new customError('Missing required fields!', 400);
-    if (!user || !user.isAdmin) throw new customError('Unauthorized user!', 401);
+    
     const verifyTitle = await Post.findOne({ where: { title } });
     if (verifyTitle) throw new customError('Title already registered!', 409);
     const post = await Post.create({ title, content, userId: user.id });
