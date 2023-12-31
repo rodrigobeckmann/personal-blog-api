@@ -33,6 +33,7 @@ const createPost = async (title, content, user) => {
     return handleError(error);
   }
 }
+
 const updatePost = async (id, title, content, user) => {
   try {
     if (!title || !content) throw new customError('Missing required fields!', 400);
@@ -46,9 +47,23 @@ const updatePost = async (id, title, content, user) => {
   }
 }
 
+const deletePost = async (id, user) => {
+  try {
+    if (!user || !user.isAdmin) throw new customError('Unauthorized user!', 401);
+    const post = await Post.findByPk(id);
+    if (!post) throw new customError('Post not found!', 404);
+    await Post.destroy({ where: { id } });
+    return { status: 204 };
+  } catch (error) {
+    return handleError(error);
+  }
+
+}
+
 module.exports = {
   listAllPosts,
   createPost,
   getPostById,
   updatePost,
+  deletePost,
 };
